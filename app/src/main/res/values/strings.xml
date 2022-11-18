@@ -11,4 +11,10 @@
     <string name="todo">todo</string>
     <string name="list_of_items">List of items</string>
     <string name="image_of_item">Image of item</string>
+    <string name="add_edit_item">Add/Edit item</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="priority">Priority</string>
+    <string name="period">Period</string>
+    <string name="save">Save</string>
 </resources>

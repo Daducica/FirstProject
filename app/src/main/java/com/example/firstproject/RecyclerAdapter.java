@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
     // test data
-    ArrayList<TodoItem> testListItems = new ArrayList<>();
+    public ArrayList<TodoItem> testListItems = new ArrayList<>();
 
     RecyclerAdapter () {
         super ();
@@ -26,6 +26,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
     }
+
+    // temporary
+    public void addItem (TodoItem newItem) {
+        testListItems.add(newItem);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

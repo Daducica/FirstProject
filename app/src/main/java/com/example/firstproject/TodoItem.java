@@ -26,6 +26,36 @@ public class TodoItem
         this.period = period;
     }
 
+    // temporary
+    TodoItem (int id, String title, String description, String priority, String period) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+
+        String lowerCasePriority = priority.toLowerCase();
+        switch (lowerCasePriority) {
+            case "high":
+                this.priority = Priority.High;
+                break;
+            case "low":
+                this.priority = Priority.Low;
+                break;
+            default:
+                this.priority = Priority.Medium;
+                break;
+        }
+
+        String lowerCasePeriod = period.toLowerCase();
+        switch (lowerCasePeriod) {
+            case "week":
+                this.period = Period.Week;
+                break;
+            default:
+                this.period = Period.Day;
+                break;
+        }
+    }
+
     String getTitle () {
         return title;
     }
