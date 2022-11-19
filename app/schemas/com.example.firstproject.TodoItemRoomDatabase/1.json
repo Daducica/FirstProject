@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7a52220d4af0d35ee6cc0ba5414a959d",
+    "entities": [
+      {
+        "tableName": "todoItems",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idColumn` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titleColumn` TEXT, `descColumn` TEXT, `priorityColumn` TEXT, `periodColumn` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "idColumn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "titleColumn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "descColumn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "priority",
+            "columnName": "priorityColumn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "period",
+            "columnName": "periodColumn",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idColumn"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7a52220d4af0d35ee6cc0ba5414a959d')"
+    ]
+  }
+}

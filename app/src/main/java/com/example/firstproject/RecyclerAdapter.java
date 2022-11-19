@@ -9,28 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
-    // test data
-    public ArrayList<TodoItem> testListItems = new ArrayList<>();
+    private List<TodoItem> todoItemList;
 
-    RecyclerAdapter () {
-        super ();
-        // test data
-        for (int i = 0; i < 10; i++) {
-            TodoItem.Priority priority = TodoItem.Priority.values()[i%3];
-            TodoItem.Period period = TodoItem.Period.values()[i%2];
-            testListItems.add (new TodoItem (i, "TodoItem" + i,"TodoItemDesc" + i,
-                    priority, period));
-        }
-
+    public void setTodoItemList(List<TodoItem> todoItems) {
+        todoItemList = todoItems;
+        notifyDataSetChanged();
     }
 
     // temporary
-    public void addItem (TodoItem newItem) {
-        testListItems.add(newItem);
-    }
+    /* public void addItem (TodoItem newItem) {
+        todoItemList.add(newItem);
+    }*/
 
     @NonNull
     @Override
@@ -41,12 +34,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.itemTitle.setText (testListItems.get(position).getTitle());
+        holder.itemTitle.setText (todoItemList.get(position).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return testListItems.size();
+        return todoItemList == null ? 0 : todoItemList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

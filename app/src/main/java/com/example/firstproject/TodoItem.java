@@ -1,34 +1,54 @@
 package com.example.firstproject;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName="todoItems")
 public class TodoItem
 {
-    enum Priority {
+    public static final String ID_COLUMN = "idColumn";
+    public static final String TITLE_COLUMN = "titleColumn";
+    public static final String DESC_COLUMN = "descColumn";
+    public static final String PRIORITY_COLUMN = "priorityColumn";
+    public static final String PERIOD_COLUMN = "periodColumn";
+
+    public enum Priority {
         High,
         Medium,
         Low
     }
 
-    enum Period {
+    public enum Period {
         Day,
         Week
     }
-    int id;
+
+    @PrimaryKey (autoGenerate = true)
+    @NonNull
+    @ColumnInfo (name=ID_COLUMN)
+    private int id;
+
+    @ColumnInfo (name=TITLE_COLUMN)
     String title;
+
+    @ColumnInfo (name=DESC_COLUMN)
     String description;
+    @ColumnInfo (name=PRIORITY_COLUMN)
     Priority priority;
+    @ColumnInfo (name=PERIOD_COLUMN)
     Period period;
 
-    TodoItem (int id, String title, String description, Priority priority, Period period) {
-        this.id = id;
+    TodoItem (String title, String description, Priority priority, Period period) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.period = period;
     }
 
-    // temporary
-    TodoItem (int id, String title, String description, String priority, String period) {
-        this.id = id;
+    //temporary
+    TodoItem (String title, String description, String priority, String period) {
         this.title = title;
         this.description = description;
 
@@ -56,7 +76,43 @@ public class TodoItem
         }
     }
 
-    String getTitle () {
+    public String getTitle () {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 }

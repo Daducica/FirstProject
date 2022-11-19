@@ -1,6 +1,9 @@
 package com.example.firstproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,11 +14,15 @@ import android.view.View;
 
 import com.example.firstproject.databinding.ActivityMainBinding;
 
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
+    private MainViewModel mViewModel;
     private static final int EDIT_TODO_ITEM_ACTIVITY = 0;
 
     public void addItem (View v) {
@@ -31,6 +38,33 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot ();
         setContentView(view);
 
+        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        //listenerSetup();
+        observerSetup();
+        recyclerSetup();
+    }
+
+    private void observerSetup() {
+
+        mViewModel.getAllTodoItems().observe(this,
+                new Observer<List<TodoItem>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<TodoItem> todoItems) {
+                        adapter.setTodoItemList(todoItems);
+                    }
+                });
+
+        mViewModel.getDisplayedTodoItems().observe(this,
+                new Observer<List<TodoItem>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<TodoItem> products) {
+                        // TODO
+                    }
+                });
+    }
+
+    private void recyclerSetup() {
         layoutManager = new LinearLayoutManager(this);
         binding.recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerAdapter();
@@ -48,10 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 String priority = data.getStringExtra(EditToDoItemActivity.PRIORITY);
                 String period = data.getStringExtra(EditToDoItemActivity.PERIOD);
 
-                int id = adapter.getItemCount();
-                TodoItem newItem = new TodoItem(id, title, desc, priority, period);
-                adapter.addItem (newItem);
-                adapter.notifyItemInserted(adapter.getItemCount());
+                TodoItem newItem = new TodoItem(title, desc, priority, period);
+                mViewModel.insertTodoItem(newItem);
             }
         }
     } //onActivityResult
