@@ -17,4 +17,7 @@
     <string name="priority">Priority</string>
     <string name="period">Period</string>
     <string name="save">Save</string>
+    <string name="choose_priority_value">choose priority value</string>
+    <string name="choose_period_value">choose period value</string>
+    <string name="title_empty_warning">Title cannot be empty!</string>
 </resources>

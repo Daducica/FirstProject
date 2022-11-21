@@ -6,6 +6,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.firstproject.databinding.EditTodoitemBinding;
 
@@ -25,15 +29,31 @@ public class EditToDoItemActivity extends AppCompatActivity {
         binding = EditTodoitemBinding.inflate(getLayoutInflater());
         View view = binding.getRoot ();
         setContentView(view);
+
+        ArrayAdapter<CharSequence> periodAdapter = ArrayAdapter.createFromResource(this,
+                R.array.period_array, android.R.layout.simple_spinner_item);
+        periodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.periodSpinner.setAdapter(periodAdapter);
+
+        ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this,
+                R.array.priority_array, android.R.layout.simple_spinner_item);
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.prioritySpinner.setAdapter(priorityAdapter);
     }
 
     public void onSaveClicked (View v) {
+
+        if (binding.titleEditText.getText ().toString().isEmpty()) {
+            Toast.makeText (getApplicationContext(), getString(R.string.title_empty_warning), Toast.LENGTH_SHORT).show ();
+            return;
+        }
+
         Intent returnIntent = new Intent();
 
         returnIntent.putExtra(TITLE, binding.titleEditText.getText().toString());
         returnIntent.putExtra(DESCRIPTION, binding.descriptionEditText.getText().toString());
-        returnIntent.putExtra(PRIORITY, binding.priorityEditText.getText().toString());
-        returnIntent.putExtra(PERIOD, binding.periodEditText.getText().toString());
+        returnIntent.putExtra(PRIORITY, binding.prioritySpinner.getSelectedItem().toString());
+        returnIntent.putExtra(PERIOD, binding.periodSpinner.getSelectedItem().toString());
 
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
@@ -44,4 +64,5 @@ public class EditToDoItemActivity extends AppCompatActivity {
         setResult(Activity.RESULT_CANCELED);
         finish();
     }
+
 }

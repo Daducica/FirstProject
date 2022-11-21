@@ -47,7 +47,7 @@
             <EditText
                 android:id="@+id/titleEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/title"
@@ -73,7 +73,7 @@
             <EditText
                 android:id="@+id/descriptionEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/description"
@@ -95,17 +95,14 @@
                 android:text="@string/priority"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/priorityEditText"
+            <Spinner
+                android:id="@+id/prioritySpinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/priority"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:textSize="20sp"
-                tools:text="priority" />
+                tools:text="priority"
+                android:contentDescription="@string/choose_priority_value"/>
         </TableRow>
 
         <TableRow
@@ -120,17 +117,14 @@
                 android:text="@string/period"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/periodEditText"
+            <Spinner
+                android:id="@+id/periodSpinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/period"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:textSize="20sp"
-                tools:text="period" />
+                tools:text="period"
+                android:contentDescription="@string/choose_period_value"/>
         </TableRow>
     </TableLayout>
 
