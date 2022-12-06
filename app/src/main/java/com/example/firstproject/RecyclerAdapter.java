@@ -34,7 +34,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.itemTitle.setText (todoItemList.get(position).getTitle());
+        TodoItem todoItem = todoItemList.get(position);
+        holder.itemTitle.setText (todoItem.getTitle());
+        holder.itemDescription.setText (todoItem.getDescription());
+        holder.period.setText (todoItem.getPeriod().toString());
+        holder.priority.setText (todoItem.getPriority().toString());
     }
 
     @Override
@@ -44,10 +48,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView itemTitle;
+        TextView itemDescription;
+        TextView period;
+        TextView priority;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemTitle = itemView.findViewById (R.id.itemTitle);
+            itemDescription = itemView.findViewById (R.id.itemDescription);
+            period = itemView.findViewById (R.id.period);
+            priority = itemView.findViewById (R.id.priority);
         }
     }
 }

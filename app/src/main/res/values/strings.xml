@@ -20,4 +20,7 @@
     <string name="choose_priority_value">choose priority value</string>
     <string name="choose_period_value">choose period value</string>
     <string name="title_empty_warning">Title cannot be empty!</string>
+    <string name="list_item_description">List item description</string>
+    <string name="m">M</string>
+    <string name="d">D</string>
 </resources>
