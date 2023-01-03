@@ -1,5 +1,6 @@
 package com.example.firstproject;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,16 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
     private List<TodoItem> todoItemList;
+    final private ViewHolderDelegate viewHolderDelegate;
+
+    RecyclerAdapter (ViewHolderDelegate delegate) {
+        viewHolderDelegate = delegate;
+    }
 
     public void setTodoItemList(List<TodoItem> todoItems) {
         todoItemList = todoItems;
         notifyDataSetChanged();
     }
-
-    // temporary
-    /* public void addItem (TodoItem newItem) {
-        todoItemList.add(newItem);
-    }*/
 
     @NonNull
     @Override
@@ -39,6 +40,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.itemDescription.setText (todoItem.getDescription());
         holder.period.setText (todoItem.getPeriod().toString());
         holder.priority.setText (todoItem.getPriority().toString());
+        holder.delegate = viewHolderDelegate;
+        holder.item = todoItem;
     }
 
     @Override
@@ -46,18 +49,37 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return todoItemList == null ? 0 : todoItemList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         TextView itemTitle;
         TextView itemDescription;
         TextView period;
         TextView priority;
+        TodoItem item;
+        ViewHolderDelegate delegate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             itemTitle = itemView.findViewById (R.id.itemTitle);
             itemDescription = itemView.findViewById (R.id.itemDescription);
             period = itemView.findViewById (R.id.period);
             priority = itemView.findViewById (R.id.priority);
         }
+
+        @Override
+        public void onClick(View view) {
+            delegate.OnClickAction(item);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            // Handle long click
+            // Return true to indicate the click was handled
+            return true;
+        }
+
     }
+
+
 }

@@ -39,6 +39,16 @@ public class EditToDoItemActivity extends AppCompatActivity {
                 R.array.priority_array, android.R.layout.simple_spinner_item);
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.prioritySpinner.setAdapter(priorityAdapter);
+
+        Intent intent = getIntent();
+        String title = intent.getStringExtra(TITLE);
+        if (title != null) {
+            binding.titleEditText.setText (title);
+            binding.descriptionEditText.setText (intent.getStringExtra(DESCRIPTION));
+            //TODO
+            //binding.prioritySpinner.setSele intent.getStringExtra(EditToDoItemActivity.PRIORITY);
+            //String period = intent.getStringExtra(EditToDoItemActivity.PERIOD);
+        }
     }
 
     public void onSaveClicked (View v) {

@@ -1,6 +1,7 @@
 package com.example.firstproject;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -17,4 +18,11 @@ public interface TodoItemDao {
 
     @Query("SELECT * FROM todoItems")
     LiveData<List<TodoItem>> getAllTodoItems();
+
+    @Query("SELECT * FROM todoItems WHERE periodColumn = :period")
+    List<TodoItem> applyPeriodFilter (TodoItem.Period period);
+
+    @Query("SELECT * FROM todoItems")
+    List<TodoItem> applyNoPeriodFilter ();
+
 }

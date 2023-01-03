@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,12 +27,25 @@ public class TodoItemRepository {
         allTodoItems = todoItemDao.getAllTodoItems();
     }
 
-    public LiveData<List<TodoItem>> getAllProducts() {
+    public LiveData<List<TodoItem>> getAllTodoItems() {
         return allTodoItems;
     }
 
     public MutableLiveData<List<TodoItem>> getDisplayedItems() {
         return displayedItems;
+    }
+
+    public void filterItems(TodoItem.Period period) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            if (period == null) {
+                displayedItemList = todoItemDao.applyNoPeriodFilter();
+            } else {
+                displayedItemList = todoItemDao.applyPeriodFilter(period);
+            }
+            handler.sendEmptyMessage(0);
+        });
+        executor.shutdown();
     }
 
     Handler handler = new Handler(Looper.getMainLooper()) {
@@ -45,7 +59,6 @@ public class TodoItemRepository {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
             todoItemDao.insertTodoItem(newItem);
-
         });
         executor.shutdown();
     }
